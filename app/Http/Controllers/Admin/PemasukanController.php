@@ -23,7 +23,8 @@ class PemasukanController extends Controller
             $pemasukan = DB::table('transaksi')
                 ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
                 ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-                ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
+                ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+                ->select('transaksi.*', 'satuan.nama as nama_satuan' ,'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
                 ->where('transaksi.tanggal', 'LIKE', $bln . '%')
                 ->orderBy('id', 'DESC')
                 ->get();
@@ -38,16 +39,18 @@ class PemasukanController extends Controller
         if (Auth::User()->level == '1') {
             $pemasukan = DB::table('transaksi')
              ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
-                ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-                ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
-            ->where('transaksi.tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
+            ->select('transaksi.*', 'satuan.nama as nama_satuan' ,'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
+            ->where('transaksi.tanggal', 'LIKE', $bln . '%')->orderBy('transaksi.id', 'DESC')->get();
             // dd($pemasukan);
         } else {
             $pemasukan = DB::table('transaksi')
              ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
-                ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-                ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
-            ->where('transaksi.tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+             ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+             ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
+            ->select('transaksi.*', 'satuan.nama as nama_satuan' ,'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
+            ->where('transaksi.tanggal', 'LIKE', $bln . '%')->orderBy('transaksi.id', 'DESC')->get();
         }
         return view('admin.pemasukan.index', ['pemasukan' => $pemasukan, 'bln' => $bln]);
     }
@@ -57,8 +60,9 @@ class PemasukanController extends Controller
         // Ambil data pengeluaran berdasarkan bulan yang diberikan
         $pemasukan = DB::table('transaksi')
             ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
-            ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-            ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
+             ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+             ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
+            ->select('transaksi.*', 'satuan.nama as nama_satuan' ,'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
             ->where('transaksi.tanggal', 'LIKE', $bln . '%')
             ->orderBy('id', 'DESC')
             ->get();

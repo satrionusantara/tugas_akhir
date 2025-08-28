@@ -62,7 +62,7 @@
             <tr>
                <td class="text-center">{{$no++}}</td>
                <td>{{date ('d M Y', strtotime($data->tanggal))}}</td>
-               <td>{{$data->nama_barang}}</td>
+               <td>{{$data->nama_barang}}  ({{$data->jumlah}} {{$data->nama_satuan}})</td>
                <td>{{$data->exp_date}}</td>
                {{-- <td class="text-center" width="15%">
                   <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#data-{{$data->id}}"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="Delete Data"></i></button>

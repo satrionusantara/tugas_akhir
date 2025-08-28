@@ -24,16 +24,18 @@ class TransaksiController extends Controller
             $transaksi = DB::table('transaksi')
                 ->where('transaksi.tanggal', $tgl)
                 ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
-                ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-                ->select('transaksi.*', 'barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
+               ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
+            ->select('transaksi.*', 'satuan.nama as nama_satuan','barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
                 ->orderBy('id', 'DESC')
                 ->get();
         } else {
             $transaksi = DB::table('transaksi')
                 ->where('transaksi.tanggal', $tgl)
                 ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
-                ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-                 ->select('transaksi.*', 'barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
+                ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
+            ->select('transaksi.*', 'satuan.nama as nama_satuan','barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
                 ->orderBy('id', 'DESC')
                 ->get();
         }
@@ -48,15 +50,17 @@ class TransaksiController extends Controller
         if (Auth::User()->level == '1') {
             $transaksi = DB::table('transaksi')
             ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
+            ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
             ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-                 ->select('transaksi.*', 'barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
+            ->select('transaksi.*', 'satuan.nama as nama_satuan','barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
 
             ->where('transaksi.tanggal', $tgl)->orderBy('id', 'DESC')->get();
         } else {
             $transaksi = DB::table('transaksi')
             ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
+                        ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
             ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-                 ->select('transaksi.*', 'barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
+            ->select('transaksi.*', 'satuan.nama as nama_satuan','barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
 
             ->where('transaksi.tanggal', $tgl)->orderBy('id', 'DESC')->get();
         }
@@ -72,7 +76,10 @@ class TransaksiController extends Controller
         // Buat nomor nota dengan prefix
         $nomor_nota = 'NOTA-' . str_pad($count + 1, 5, '0', STR_PAD_LEFT); 
         $metode = DB::table('metode')->orderBy('id', 'DESC')->get();
-        $barang = DB::table('barang_masuk')->orderBy('id', 'DESC')->get();
+        $barang = DB::table('barang_masuk')
+        ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
+        ->orderBy('id', 'DESC')->get();
         return view('admin.transaksi.tambah', ['metode' => $metode, 'barang' => $barang, 'nomor_nota' => $nomor_nota]);
     }
 
@@ -173,8 +180,9 @@ class TransaksiController extends Controller
         // Ambil data transaksi berdasarkan ID
         $transaksi = DB::table('transaksi')
             ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
+            ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
             ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-            ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
+            ->select('transaksi.*', 'satuan.nama as nama_satuan','barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
             ->where('transaksi.id', $id)
             ->orderBy('id', 'DESC')
             ->first();

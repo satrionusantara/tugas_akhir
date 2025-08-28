@@ -70,7 +70,7 @@
                <td class="text-center">{{$no++}}</td>
                <td>{{date ('d M Y', strtotime($data->tanggal))}}</td>
                <td>{{$data->nama_barang}}</td>
-               <td>{{$data->stock}}</td>
+               <td>{{$data->stock}} {{$data->nama_satuan}}</td>
                <td>{{ 'Rp ' . number_format($data->harga_modal, 0, ',', '.') }}</td>
                <td>{{ 'Rp ' . number_format($data->harga_jual, 0, ',', '.') }}</td>
                <td>{{ $data->exp_date }}</td>

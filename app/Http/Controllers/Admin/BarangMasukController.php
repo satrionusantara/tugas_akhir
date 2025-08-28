@@ -19,9 +19,15 @@ class BarangMasukController extends Controller
         date_default_timezone_set('Asia/Jakarta');
         $bln = date('Y-m');
         if (Auth::User()->level == '1') {
-            $barang_masuk = DB::table('barang_masuk')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            $barang_masuk = DB::table('barang_masuk')
+            ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
+            ->where('tanggal', 'LIKE', $bln . '%')->orderBy('barang_masuk.id', 'DESC')->get();
         } else {
-            $barang_masuk = DB::table('barang_masuk')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            $barang_masuk = DB::table('barang_masuk')
+            ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
+            ->where('tanggal', 'LIKE', $bln . '%')->orderBy('barang_masuk.id', 'DESC')->get();
         }
 
         return view('admin.barang_masuk.index', ['barang_masuk' => $barang_masuk, 'bln' => $bln]);
@@ -30,9 +36,15 @@ class BarangMasukController extends Controller
     public function read_filter($bln)
     {
         if (Auth::User()->level == '1') {
-            $barang_masuk = DB::table('barang_masuk')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            $barang_masuk = DB::table('barang_masuk')
+            ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
+            ->where('tanggal', 'LIKE', $bln . '%')->orderBy('barang_masuk.id', 'DESC')->get();
         } else {
-            $barang_masuk = DB::table('barang_masuk')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            $barang_masuk = DB::table('barang_masuk')
+            ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
+            ->where('tanggal', 'LIKE', $bln . '%')->orderBy('barang_masuk.id', 'DESC')->get();
         }
 
         return view('admin.barang_masuk.index', ['barang_masuk' => $barang_masuk, 'bln' => $bln]);
@@ -40,7 +52,8 @@ class BarangMasukController extends Controller
 
     public function add()
     {
-        return view('admin.barang_masuk.tambah');
+        $satuan = DB::table('satuan')->get();
+        return view('admin.barang_masuk.tambah', compact('satuan'));
     }
 
     public function create(Request $request)
@@ -50,6 +63,7 @@ class BarangMasukController extends Controller
 
         DB::table('barang_masuk')->insert([
             'tanggal' => $request->tanggal,
+            'id_satuan' => $request->id_satuan,
             'nama_barang' => $request->nama_barang,
             'harga_modal' => $harga_modal,
             'harga_jual' => $harga_jual,
@@ -64,8 +78,8 @@ class BarangMasukController extends Controller
     public function edit($id)
     {
         $barang_masuk = DB::table('barang_masuk')->find($id);
-
-        return view('admin.barang_masuk.edit', ['barang_masuk' => $barang_masuk]);
+         $satuan = DB::table('satuan')->get();
+        return view('admin.barang_masuk.edit', ['barang_masuk' => $barang_masuk, 'satuan' => $satuan]);
     }
 
     public function update(Request $request, $id)
@@ -75,10 +89,13 @@ class BarangMasukController extends Controller
 
         DB::table('barang_masuk')->where('id', $id)->update([
             'tanggal' => $request->tanggal,
+            'id_satuan' => $request->id_satuan,
             'nama_barang' => $request->nama_barang,
             'harga_modal' => $harga_modal,
             'harga_jual' => $harga_jual,
             'exp_date' => $request->exp_date,
+            'nomor_nota' => $request->nomor_nota,
+            'stock' => $request->stock,
         ]);
 
         return redirect("/admin/barang_masuk")->with("success", "Data Berhasil Diupdate!");

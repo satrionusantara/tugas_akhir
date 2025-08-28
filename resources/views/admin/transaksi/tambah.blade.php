@@ -67,7 +67,7 @@
                                 <option value="">-- Pilih Barang --</option>
                                 @foreach ($barang as $data)
                                     <option value="{{ $data->id }}" data-harga-jual="{{ $data->harga_jual }}">
-                                        {{ $data->nama_barang }} ({{$data->stock}})
+                                        {{ $data->nama_barang }} ({{$data->stock}} {{$data->nama_satuan}})
                                     </option>
                                 @endforeach
                             </select>

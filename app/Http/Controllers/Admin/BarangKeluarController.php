@@ -17,7 +17,9 @@ class BarangKeluarController extends Controller
     public function read(){
         $barang_keluar = DB::table('transaksi')
         ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
-        ->select('barang_masuk.nama_barang','barang_masuk.exp_date', 'transaksi.tanggal')
+        // ->select('barang_masuk.nama_barang','barang_masuk.exp_date', 'transaksi.tanggal')
+        ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+        ->select('transaksi.*', 'satuan.nama as nama_satuan','barang_masuk.nama_barang','barang_masuk.exp_date')
         ->orderBy('transaksi.id','DESC')
         ->get();
 

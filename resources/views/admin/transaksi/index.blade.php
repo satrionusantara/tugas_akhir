@@ -81,7 +81,7 @@
                     <td>{{ date('d M Y', strtotime($data->tanggal)) }}</td>
                     <td>{{ $data->pukul ?? '-' }}</td>
                     <td>{{ $data->nama_barang ?? '-' }}</td>
-                    <td>{{ $data->jumlah }}</td>
+                    <td>{{ $data->jumlah }} {{$data->nama_satuan}}</td>
                     <td>{{ $data->exp_date ?? '-' }}</td>
                     <td class="text-left">{{ 'Rp ' . number_format($data->total ?? 0, 0, ',', '.') }}</td>
                     <td class="text-left">{{ 'Rp ' . number_format($data->bayar ?? 0, 0, ',', '.') }}</td>

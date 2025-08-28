@@ -182,7 +182,7 @@ Route::prefix('admin/pengeluaran')
     ->controller(PengeluaranController::class)
     ->group(function () {
         Route::get('/', 'read')->name('read');
-        Route::get('/filter/{id}/{bln}', 'read_filter')->name('read_filter');
+        Route::get('/filter/{bln}', 'read_filter')->name('read_filter');
         Route::get('/add', 'add')->name('add');
         Route::post('/create', 'create')->name('create');
         Route::get('/edit/{id}', 'edit')->name('edit');

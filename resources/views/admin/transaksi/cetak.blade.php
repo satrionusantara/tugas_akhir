@@ -34,7 +34,7 @@
 
         <table>
             <tr>
-                <td>{{ $transaksi->nama_barang }} x {{ $transaksi->jumlah }}</td>
+                 <td>{{ $transaksi->nama_barang }} x {{ $transaksi->jumlah }} {{ $transaksi->nama_satuan }}</td>
                 <td class="right">Rp {{ number_format($transaksi->total,0,',','.') }}</td>
             </tr>
         </table>

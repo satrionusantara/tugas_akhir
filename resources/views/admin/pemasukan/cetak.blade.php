@@ -68,7 +68,7 @@
                     <tr>
                         <td class="text-center">{{ $no++ }}</td>
                         <td>{{ date('d M Y', strtotime($data->tanggal)) }}</td>
-                        <td>{{ ucwords(strtolower($data->nama_barang)) }}</td>
+                        <td>{{ ucwords(strtolower($data->nama_barang)) }} ({{$data->jumlah}} {{$data->nama_satuan}})</td>
                         <td>{{ ucwords(strtolower($data->exp_date)) }}</td>
                         <td class="text-center">{{ $data->nama_metode ?? '-' }}</td>
                         <td>{{ 'Rp ' . number_format($data->total, 0, ',', '.') }}</td>

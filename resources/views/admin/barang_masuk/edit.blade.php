@@ -40,6 +40,13 @@
                                 value="{{ $barang_masuk->tanggal }}">
                         </div>
                     </div>
+                    
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Nomor Nota<span class="text-danger">*</span></label>
+                        <input type="text" name="nomor_nota" class="form-control" placeholder="Masukkan Nama Barang ....." value="{{$barang_masuk->nomor_nota}}">
+                    </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Nama Barang</label>
@@ -49,10 +56,30 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label>Satuan<span class="text-danger">*</span></label>
+                            <select class="form-control select2" id="id_satuan" name="id_satuan">
+                                <option value="">-- Pilih Satuan --</option>
+                                @foreach ($satuan as $data)
+                                    <option value="{{ $data->id }}" 
+                                        {{ $barang_masuk->id_satuan == $data->id ? 'selected' : '' }}>
+                                        {{ $data->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label>Exp Date</label>
                             <input type="date" name="exp_date" class="form-control"
                                 placeholder="Masukkan Exp Date ....." value="{{ $barang_masuk->exp_date }}">
                         </div>
+                    </div>
+                     <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Stock<span class="text-danger">*</span></label>
+                        <input type="number" name="stock" class="form-control" placeholder="Masukkan Nama Barang ....." value="{{ $barang_masuk->stock }}">
+                    </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">

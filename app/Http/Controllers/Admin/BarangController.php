@@ -19,9 +19,15 @@ class BarangController extends Controller
         date_default_timezone_set('Asia/Jakarta');
         $bln = date('Y-m');
         if (Auth::User()->level == '1') {
-            $barang = DB::table('barang_masuk')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            $barang = DB::table('barang_masuk')
+             ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
+            ->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
         } else {
-            $barang = DB::table('barang_masuk')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            $barang = DB::table('barang_masuk')
+             ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
+            ->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
         }
         return view('admin.barang.index', ['barang' => $barang, 'bln' => $bln]);
     }
@@ -29,9 +35,15 @@ class BarangController extends Controller
     public function read_filter($bln)
     {
         if (Auth::User()->level == '1') {
-            $barang = DB::table('barang_masuk')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            $barang = DB::table('barang_masuk')
+             ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
+            ->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
         } else {
-            $barang = DB::table('barang_masuk')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            $barang = DB::table('barang_masuk')
+             ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
+            ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
+            ->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
         }
 
         return view('admin.barang.index', ['barang' => $barang, 'bln' => $bln]);

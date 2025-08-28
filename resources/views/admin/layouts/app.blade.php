@@ -380,7 +380,7 @@
                     <ul class="submenu">
                         <li><a href="/admin/satuan" class="@if ($activePage == 'satuan') active @endif">Data Satuan</a></li>
                         <li><a href="/admin/metode" class="@if ($activePage == 'metode') active @endif">Metode Pembayaran</a></li>
-                        <li><a href="/admin/supplier" class="@if ($activePage == 'supplier') active @endif">Data Supplier</a></li>
+                        <!-- <li><a href="/admin/supplier" class="@if ($activePage == 'supplier') active @endif">Data Supplier</a></li> -->
                     </ul>
                 </li>
 
