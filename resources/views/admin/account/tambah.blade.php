@@ -49,7 +49,7 @@
             <div class="col-md-12">
                <div class="form-group">
                   <label>Password Account<span class="text-danger">*</span></label>
-                  <input type="text" name="password" required class="form-control" placeholder="Masukkan Password Account ....." value="Blazer2025">
+                  <input type="text" name="password" required class="form-control" placeholder="Masukkan Password Account ....." value="Syukurilah2025">
                </div>
             </div>   
          </div>
