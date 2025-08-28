@@ -69,19 +69,28 @@ class TransaksiController extends Controller
     }
 
     public function add()
-    {
-        date_default_timezone_set('Asia/Jakarta');
-         $count = DB::table('transaksi')->count();
+{
+    date_default_timezone_set('Asia/Jakarta');
 
-        // Buat nomor nota dengan prefix
-        $nomor_nota = 'NOTA-' . str_pad($count + 1, 5, '0', STR_PAD_LEFT); 
-        $metode = DB::table('metode')->orderBy('id', 'DESC')->get();
-        $barang = DB::table('barang_masuk')
+    $lastId = DB::table('transaksi')->max('id');
+    $nextId = $lastId ? $lastId + 1 : 1;
+
+    // Buat nomor nota dengan prefix
+    $nomor_nota = 'NOTA-' . str_pad($nextId, 5, '0', STR_PAD_LEFT); 
+
+    $metode = DB::table('metode')->orderBy('id', 'DESC')->get();
+    $barang = DB::table('barang_masuk')
         ->join('satuan', 'barang_masuk.id_satuan', '=', 'satuan.id')
-            ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
+        ->select('barang_masuk.*', 'satuan.nama as nama_satuan')
         ->orderBy('id', 'DESC')->get();
-        return view('admin.transaksi.tambah', ['metode' => $metode, 'barang' => $barang, 'nomor_nota' => $nomor_nota]);
-    }
+
+    return view('admin.transaksi.tambah', [
+        'metode' => $metode,
+        'barang' => $barang,
+        'nomor_nota' => $nomor_nota
+    ]);
+}
+
 
     public function create(Request $request)
 {
