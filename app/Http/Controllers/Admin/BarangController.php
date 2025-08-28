@@ -26,6 +26,17 @@ class BarangController extends Controller
         return view('admin.barang.index', ['barang' => $barang, 'bln' => $bln]);
     }
 
+    public function read_filter($bln)
+    {
+        if (Auth::User()->level == '1') {
+            $barang = DB::table('barang_masuk')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+        } else {
+            $barang = DB::table('barang_masuk')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+        }
+
+        return view('admin.barang.index', ['barang' => $barang, 'bln' => $bln]);
+    }
+
     public function add()
     {
         $sales = DB::table('sales')->orderBy('nama', 'ASC')->get();

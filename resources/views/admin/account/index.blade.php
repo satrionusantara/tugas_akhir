@@ -7,12 +7,12 @@
       <div class="row">
          <div class="col-md-6 col-sm-12">
             <div class="title">
-               <h4>Data Akun Kasir</h4>
+               <h4>Data Akun</h4>
             </div>
             <nav aria-label="breadcrumb" role="navigation">
                <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Data Input</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Data Akun Kasir</li>
+                  <li class="breadcrumb-item active" aria-current="page">Data Akun</li>
                </ol>
             </nav>
          </div>
@@ -22,7 +22,7 @@
    <div class="pd-20 card-box mb-30">
       <div class="clearfix">
          <div class="pull-left">
-            <h2 class="text-primary h2"><i class="icon-copy dw dw-list"></i> List Data Akun Kasir</h2>
+            <h2 class="text-primary h2"><i class="icon-copy dw dw-list"></i> List Data Akun</h2>
          </div>
          <div class="pull-right">
             <a href="/admin/account/add" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Tambah Data</a>

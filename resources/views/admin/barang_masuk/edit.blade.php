@@ -49,6 +49,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label>Exp Date</label>
+                            <input type="date" name="exp_date" class="form-control"
+                                placeholder="Masukkan Exp Date ....." value="{{ $barang_masuk->exp_date }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label>Harga Modal</label>
                             <input type="text" name="harga_modal" class="form-control"
                                 placeholder="Masukkan Harga Modal ....." value="{{ $barang_masuk->harga_modal }}"

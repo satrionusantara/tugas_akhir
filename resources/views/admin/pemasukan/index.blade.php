@@ -61,6 +61,7 @@
                         <th class="text-center">#</th>
                         <th class="text-center">Tanggal</th>
                         <th class="text-center">Nama Barang</th>
+                        <th class="text-center">Exp Date</th>
                         <th class="text-center">Metode Pembayaran</th>
                         <th class="text-center">Total</th>
                     </tr>
@@ -77,6 +78,7 @@
                             <td class="text-center">{{ $no++ }}</td>
                             <td>{{ date('d M Y', strtotime($data->tanggal)) }}</td>
                             <td>{{ ucwords(strtolower($data->nama_barang)) }}</td>
+                            <td>{{ $data->exp_date }}</td>
                             <td class="text-center">{{ $data->nama_metode ?? '-' }}</td>
                             <td>{{ 'Rp ' . number_format($data->total, 0, ',', '.') }}</td>
                         </tr>
@@ -84,7 +86,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="4">Total Pemasukan</th>
+                        <th colspan="5">Total Pemasukan</th>
                         <th>{{ 'Rp ' . number_format($total ?? '0', 0, ',', '.') }}</th>
                     </tr>
                 </tfoot>

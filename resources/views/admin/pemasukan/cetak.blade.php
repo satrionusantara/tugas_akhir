@@ -24,9 +24,9 @@
     <div style="margin-top:-30px; margin-bottom:0px">
         <table border="0" width="100%" cellspacing="0" cellpadding="0">
             <tr>
-                <td width="15%" class="text-center">
+                <!-- <td width="15%" class="text-center">
                     <img src="{{ public_path('assets-admin/src/images/logo-ayam.png') }}" width="100%">
-                </td>
+                </td> -->
                 <td class="text-center">
                     <p style="font-size:18px;font-weight: bold;font-family: 'Arial', sans-serif;">
                         <span style="font-size:30px">TOKO SYUKURILAH</span><br>
@@ -52,6 +52,7 @@
                     <th class="text-center" width="5%">#</th>
                     <th width="15%">Tanggal</th>
                     <th>Nama Barang</th>
+                    <th>Exp Date</th>
                     <th class="text-center" width="20%">Metode Pemasukan</th>
                     <th class="text-center" width="20%">Total</th>
                 </tr>
@@ -68,6 +69,7 @@
                         <td class="text-center">{{ $no++ }}</td>
                         <td>{{ date('d M Y', strtotime($data->tanggal)) }}</td>
                         <td>{{ ucwords(strtolower($data->nama_barang)) }}</td>
+                        <td>{{ ucwords(strtolower($data->exp_date)) }}</td>
                         <td class="text-center">{{ $data->nama_metode ?? '-' }}</td>
                         <td>{{ 'Rp ' . number_format($data->total, 0, ',', '.') }}</td>
                     </tr>
@@ -75,7 +77,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="4" style="background-color: #1b00ff; color: white;">Total Pemasukan</th>
+                    <th colspan="5" style="background-color: #1b00ff; color: white;">Total Pemasukan</th>
                     <th style="background-color: #1b00ff; color: white;">
                         {{ 'Rp ' . number_format($total ?? '0', 0, ',', '.') }}</th>
                 </tr>
@@ -87,11 +89,13 @@
                 <td width="50%" class="text-center"></td>
                 <td width="50%" class="text-center">
                     <span style="margin-top: 10px;"><br>Lintau Buo,
-                        {{ \Carbon\Carbon::parse(date('Y-m-d'))->locale('id')->translatedFormat('d F Y') }}<br>Owner
+                     {{\Carbon\Carbon::parse(date('Y-m-d'))->locale('id')->translatedFormat('d F Y')}}
+                       <!-- {{ \Carbon\Carbon::parse(now('Asia/Jakarta'))->locale('id')->translatedFormat('d F Y') }} -->
+                        <!-- <br>Owner
                         Toko Syukurilah</span><br>
                     <img style="margin:10px 0px 10px 0px"
                         src="http://api.qrserver.com/v1/create-qr-code/?size=75x75&data=Maya "><br>
-                    <span style="font-weight: bold;">Owner</span><br>
+                    <span style="font-weight: bold;">Owner</span><br> -->
                 </td>
             </tr>
         </table>

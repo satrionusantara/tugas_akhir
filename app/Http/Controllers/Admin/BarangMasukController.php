@@ -53,6 +53,9 @@ class BarangMasukController extends Controller
             'nama_barang' => $request->nama_barang,
             'harga_modal' => $harga_modal,
             'harga_jual' => $harga_jual,
+            'exp_date' => $request->exp_date,
+            'nomor_nota' => $request->nomor_nota,
+            'stock' => $request->stock,
         ]);
 
         return redirect("/admin/barang_masuk/")->with("success", "Data Berhasil Ditambah!");
@@ -75,6 +78,7 @@ class BarangMasukController extends Controller
             'nama_barang' => $request->nama_barang,
             'harga_modal' => $harga_modal,
             'harga_jual' => $harga_jual,
+            'exp_date' => $request->exp_date,
         ]);
 
         return redirect("/admin/barang_masuk")->with("success", "Data Berhasil Diupdate!");
@@ -83,7 +87,7 @@ class BarangMasukController extends Controller
     public function delete($id)
     {
         DB::table('barang_masuk')->where('id', $id)->delete();
-        DB::table('detail_barang_masuk')->where('id_barang_masuk', $id)->delete();
+        // DB::table('detail_barang_masuk')->where('id_barang_masuk', $id)->delete();
 
         return redirect('/admin/barang_masuk')->with("success", "Data Berhasil Dihapus !");
     }

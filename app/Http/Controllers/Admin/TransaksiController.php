@@ -25,7 +25,7 @@ class TransaksiController extends Controller
                 ->where('transaksi.tanggal', $tgl)
                 ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
                 ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-                ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as metode_pembayaran')
+                ->select('transaksi.*', 'barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
                 ->orderBy('id', 'DESC')
                 ->get();
         } else {
@@ -33,7 +33,7 @@ class TransaksiController extends Controller
                 ->where('transaksi.tanggal', $tgl)
                 ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
                 ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-                ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as metode_pembayaran')
+                 ->select('transaksi.*', 'barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
                 ->orderBy('id', 'DESC')
                 ->get();
         }
@@ -46,9 +46,19 @@ class TransaksiController extends Controller
         date_default_timezone_set('Asia/Jakarta');
 
         if (Auth::User()->level == '1') {
-            $transaksi = DB::table('transaksi')->where('tanggal', $tgl)->orderBy('id', 'DESC')->get();
+            $transaksi = DB::table('transaksi')
+            ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
+            ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
+                 ->select('transaksi.*', 'barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
+
+            ->where('transaksi.tanggal', $tgl)->orderBy('id', 'DESC')->get();
         } else {
-            $transaksi = DB::table('transaksi')->where('tanggal', $tgl)->orderBy('id', 'DESC')->get();
+            $transaksi = DB::table('transaksi')
+            ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
+            ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
+                 ->select('transaksi.*', 'barang_masuk.nama_barang','barang_masuk.exp_date', 'metode.nama as metode_pembayaran')
+
+            ->where('transaksi.tanggal', $tgl)->orderBy('id', 'DESC')->get();
         }
 
         return view('admin.transaksi.index', ['tgl' => $tgl, 'transaksi' => $transaksi]);
@@ -57,36 +67,66 @@ class TransaksiController extends Controller
     public function add()
     {
         date_default_timezone_set('Asia/Jakarta');
+         $count = DB::table('transaksi')->count();
 
+        // Buat nomor nota dengan prefix
+        $nomor_nota = 'NOTA-' . str_pad($count + 1, 5, '0', STR_PAD_LEFT); 
         $metode = DB::table('metode')->orderBy('id', 'DESC')->get();
         $barang = DB::table('barang_masuk')->orderBy('id', 'DESC')->get();
-        return view('admin.transaksi.tambah', ['metode' => $metode, 'barang' => $barang]);
+        return view('admin.transaksi.tambah', ['metode' => $metode, 'barang' => $barang, 'nomor_nota' => $nomor_nota]);
     }
 
     public function create(Request $request)
-    {
-        $barang = DB::table('barang_masuk')->where('id', $request->id_barang)->first();
-        $harga_jual = $barang ? (int)$barang->harga_jual : 0;
+{
+    $barang = DB::table('barang_masuk')->where('id', $request->id_barang)->first();
 
-        $potongan = (int)preg_replace('/\D/', '', $request->potongan);
-        $bayar = (int)preg_replace('/\D/', '', $request->bayar);
+    if (!$barang) {
+        return redirect()->back()->withErrors(['Barang tidak ditemukan.'])->withInput();
+    }
 
-        $total = max(0, $harga_jual - $potongan);
-        $kembali = max(0, $bayar - $total);
+    $harga_jual = (int)$barang->harga_jual;
+    $jumlah     = (int)$request->jumlah; // jumlah barang yg dibeli
 
-        $id = DB::table('transaksi')->insertGetId([
-            'tanggal'   => $request->tanggal,
-            'pukul'     => $request->pukul,
-            'id_barang' => $request->id_barang,
-            'total'     => $total,
-            'potongan'  => $potongan,
-            'bayar'     => (int)preg_replace('/\D/', '', $request->bayar),
-            'kembali'   => $kembali,
-            'id_metode' => $request->id_metode,
+    $potongan = (int)preg_replace('/\D/', '', $request->potongan);
+    $bayar    = (int)preg_replace('/\D/', '', $request->bayar);
+
+    $total    = max(0, ($harga_jual * $jumlah) - $potongan);
+    $kembali  = max(0, $bayar - $total);
+
+    // ✅ Validasi jika uang bayar tidak cukup
+    if ($bayar < $total) {
+        return redirect()->back()->withErrors(['Bayar' => 'Uang yang dibayarkan tidak cukup.'])->withInput();
+    }
+
+    // ✅ Validasi stok cukup
+    if ($barang->stock < $jumlah) {
+        return redirect()->back()->withErrors(['Stok' => 'Stok barang tidak mencukupi.'])->withInput();
+    }
+
+    // Simpan data transaksi
+    $id = DB::table('transaksi')->insertGetId([
+        'nomor_nota'   => $request->nomor_nota,
+        'tanggal'   => $request->tanggal,
+        'pukul'     => $request->pukul,
+        'id_barang' => $request->id_barang,
+        'jumlah'    => $jumlah,
+        'total'     => $total,
+        'potongan'  => $potongan,
+        'bayar'     => $bayar,
+        'kembali'   => $kembali,
+        'id_metode' => $request->id_metode,
+    ]);
+
+    // ✅ Update stok barang masuk
+    DB::table('barang_masuk')
+        ->where('id', $request->id_barang)
+        ->update([
+            'stock' => $barang->stock - $jumlah
         ]);
 
-        return redirect("/admin/transaksi/")->with("success", "Data Berhasil Ditambah !");
-    }
+    return redirect("/admin/transaksi/")->with("success", "Data Berhasil Ditambah !");
+}
+
 
     public function edit($id)
     {
@@ -127,6 +167,31 @@ class TransaksiController extends Controller
 
         return redirect('/admin/transaksi')->with("success", "Data Berhasil Dihapus !");
     }
+
+    public function cetak($id)
+    {
+        // Ambil data transaksi berdasarkan ID
+        $transaksi = DB::table('transaksi')
+            ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
+            ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
+            ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
+            ->where('transaksi.id', $id)
+            ->orderBy('id', 'DESC')
+            ->first();
+            // ->get();
+
+        // Load view dan set paper untuk PDF
+        $pdf = Pdf::loadview('admin.transaksi.cetak', [
+            'transaksi' => $transaksi,
+            'id' => $id
+        ]);
+        $pdf->setPaper([0, 0, 226.77, 600], 'portrait'); 
+
+        // Return PDF dengan nama yang sesuai ID
+        return $pdf->stream('Laporan Transaksi ID-' . $id . '.pdf');
+    }
+
+
 
     public function searchBarang(Request $request)
     {

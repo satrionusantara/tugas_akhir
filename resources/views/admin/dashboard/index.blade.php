@@ -31,7 +31,7 @@
                      <div class="weight-600 font-30 text-blue">{{Auth::User()->name}}</div>
                   </h4>
                   <p class="font-18 max-width-600 text-justify">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum minima quas mollitia, sequi provident dolor eaque vitae vero ad doloribus molestiae modi nisi laboriosam omnis obcaecati consequuntur cupiditate illo dolorum?
+                       Toko Syukurilah PS adalah toko yang bergerak dalam bidang penjualan berbagai jenis obat ayam, mulai dari vitamin, jamu, antibiotik, hingga suplemen penambah stamina. Kami menyediakan produk berkualitas terpercaya dengan harga yang terjangkau untuk mendukung kesehatan dan performa unggas Anda.
                   </p>
                </div>
             </div>

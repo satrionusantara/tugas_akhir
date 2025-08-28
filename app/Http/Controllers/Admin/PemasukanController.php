@@ -23,7 +23,7 @@ class PemasukanController extends Controller
             $pemasukan = DB::table('transaksi')
                 ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
                 ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-                ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode')
+                ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
                 ->where('transaksi.tanggal', 'LIKE', $bln . '%')
                 ->orderBy('id', 'DESC')
                 ->get();
@@ -36,9 +36,18 @@ class PemasukanController extends Controller
     public function read_filter($bln)
     {
         if (Auth::User()->level == '1') {
-            $pemasukan = DB::table('pemasukan')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            $pemasukan = DB::table('transaksi')
+             ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
+                ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
+                ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
+            ->where('transaksi.tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            // dd($pemasukan);
         } else {
-            $pemasukan = DB::table('pemasukan')->where('tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
+            $pemasukan = DB::table('transaksi')
+             ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
+                ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
+                ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
+            ->where('transaksi.tanggal', 'LIKE', $bln . '%')->orderBy('id', 'DESC')->get();
         }
         return view('admin.pemasukan.index', ['pemasukan' => $pemasukan, 'bln' => $bln]);
     }
@@ -49,7 +58,7 @@ class PemasukanController extends Controller
         $pemasukan = DB::table('transaksi')
             ->join('barang_masuk', 'transaksi.id_barang', '=', 'barang_masuk.id')
             ->join('metode', 'transaksi.id_metode', '=', 'metode.id')
-            ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode')
+            ->select('transaksi.*', 'barang_masuk.nama_barang', 'metode.nama as nama_metode', 'barang_masuk.exp_date')
             ->where('transaksi.tanggal', 'LIKE', $bln . '%')
             ->orderBy('id', 'DESC')
             ->get();

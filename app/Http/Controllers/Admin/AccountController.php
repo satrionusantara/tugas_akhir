@@ -71,9 +71,9 @@ class AccountController extends Controller
         DB::table('users')
             ->where('id', $id)
             ->update([
-                'password' => bcrypt('Blazer2025')
+                'password' => bcrypt('Syukurilah')
             ]);
 
-        return redirect('/admin/account')->with("success", "Password Berhasil Direset ! | Password Default : Blazer2025");
+        return redirect('/admin/account')->with("success", "Password Berhasil Direset ! | Password Default : Syukurilah");
     }
 }

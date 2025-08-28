@@ -57,14 +57,17 @@
                 <thead class="bg-primary text-white">
                     <tr>
                         <th width="5%">#</th>
+                        <th>Nomor Nota</th>
                         <th>Tanggal</th>
                         <th>Pukul</th>
                         <th>Nama Barang</th>
+                        <th>Jumlah</th>
+                        <th>Exp Date</th>
                         <th>Harga</th>
                         <th>Bayar</th>
-                        <th>Kembalian</th>
+                        <!-- <th>Kembalian</th> -->
                         <th>Metode</th>
-                        {{-- <th class="table-plus datatable-nosort text-center">Action</th> --}}
+                        <th class="table-plus datatable-nosort text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,36 +75,34 @@
                     $total = 0; ?>
                     @foreach ($transaksi as $data)
                         <?php $total += $data->total ?? 0; ?>
-                        <tr>
-                            <td class="text-center">{{ $no++ }}</td>
-                            <td>{{date ('d M Y', strtotime($data->tanggal))}}</td>
-                            <td>{{ $data->pukul ?? '-' }}</td>
-                            <td>{{ $data->nama_barang ?? '-' }}</td>
-                            <td class="text-left">{{ 'Rp ' . number_format($data->total ?? 0, 0, ',', '.') }}</td>
-                            <td class="text-left">{{ 'Rp ' . number_format($data->bayar ?? 0, 0, ',', '.') }}</td>
-                            <td class="text-left">{{ 'Rp ' . number_format($data->kembali ?? 0, 0, ',', '.') }}</td>
-                            <td>{{ $data->metode_pembayaran ?? '-' }}</td>
-                            {{-- <td class="text-center" width="15%">
-                                <a href="/admin/transaksi/detail/{{ $data->id }}">
-                                    <button class="btn btn-info btn-xs"><i class="fa fa-id-card" data-toggle="tooltip"
-                                            data-placement="top" title="Detail Data"></i></button>
-                                </a>
-                                <a href="/admin/transaksi/edit/{{ $data->id }}">
-                                    <button class="btn btn-success btn-xs"><i class="fa fa-edit" data-toggle="tooltip"
-                                            data-placement="top" title="Edit Data"></i></button>
-                                </a>
-                                <button class="btn btn-danger btn-xs" data-toggle="modal"
-                                    data-target="#data-{{ $data->id }}">
-                                    <i class="fa fa-trash" data-toggle="tooltip" data-placement="top"
-                                        title="Delete Data"></i>
-                                </button>
-                            </td> --}}
-                        </tr>
+                       <tr>
+                    <td class="text-center">{{ $no++ }}</td>
+                    <td>{{ $data->nomor_nota ?? '-' }}</td>
+                    <td>{{ date('d M Y', strtotime($data->tanggal)) }}</td>
+                    <td>{{ $data->pukul ?? '-' }}</td>
+                    <td>{{ $data->nama_barang ?? '-' }}</td>
+                    <td>{{ $data->jumlah }}</td>
+                    <td>{{ $data->exp_date ?? '-' }}</td>
+                    <td class="text-left">{{ 'Rp ' . number_format($data->total ?? 0, 0, ',', '.') }}</td>
+                    <td class="text-left">{{ 'Rp ' . number_format($data->bayar ?? 0, 0, ',', '.') }}</td>
+                    <!-- <td class="text-left">{{ 'Rp ' . number_format($data->kembali ?? 0, 0, ',', '.') }}</td> -->
+                    <td>{{ $data->metode_pembayaran ?? '-' }}</td>
+                    
+                    {{-- Tambahkan tombol cetak --}}
+                    <td class="text-center">
+                        <a href="{{ url('/admin/transaksi/cetak/' . $data->id) }}" target="_blank">
+                            <button class="btn btn-primary btn-xs">
+                                <i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Cetak Struk"></i>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+
                     @endforeach
                 </tbody>
                 <tfoot>
                     <tr class="bg-primary text-white">
-                        <th colspan="4">Total Transaksi Keseluruhan</th>
+                        <th colspan="10">Total Transaksi Keseluruhan</th>
                         <th class="text-left" colspan="1">{{ 'Rp ' . number_format($total ?? 0, 0, ',', '.') }}</th>
                     </tr>
                 </tfoot>

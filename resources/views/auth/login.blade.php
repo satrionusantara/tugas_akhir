@@ -4,12 +4,12 @@
 <head>
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
-	<title>Login | Blazer Elektronik</title>
+	<title>Login | Toko Syukurilah</title>
 
 	<!-- Site favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="{{url('assets-admin')}}/vendors/images/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="{{url('assets-admin')}}/vendors/images/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="{{url('assets-admin')}}/vendors/images/favicon-16x16.png">
+  <!-- <link rel="apple-touch-icon" sizes="180x180" href="{{url('assets-admin')}}/vendors/images/apple-touch-icon.png"> -->
+	<!-- <link rel="icon" type="image/png" sizes="32x32" href="{{url('assets-admin')}}/vendors/images/favicon-32x32.png"> -->
+	<!-- <link rel="icon" type="image/png" sizes="16x16" href="{{url('assets-admin')}}/vendors/images/favicon-16x16.png"> -->
 
 	<!-- Mobile Specific Metas -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -24,9 +24,10 @@
 <body class="login-page">
 	<div class="login-header box-shadow">
 		<div class="container-fluid d-flex justify-content-between align-items-center">
-			<div class="brand-logo">
-				<a href="/">
-					<img src="{{url('assets-admin')}}/vendors/images/blazer.svg" alt="">
+			<div class="p-2">
+					<a href="/" style="display: flex; flex-direction: column;">
+					<p class="text-primary m-0 " style="font-weight: bold;">Toko Syukurillah PS</p>
+					<p class="text-primary m-0" style="font-size: 11px; font-weight: bold;">Jorong rajawali, Tigo Jangko, Lintau Buo</p>
 				</a>
 			</div>
 		</div>

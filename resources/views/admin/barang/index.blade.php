@@ -56,8 +56,10 @@
                <th class="text-center" width="5%" >#</th>
                <th class="text-center">Tanggal</th>
                <th class="text-center">Nama Barang</th>
+               <th class="text-center">Stock</th>
                <th class="text-center">Harga Modal</th>
                <th class="text-center">Harga Jual</th>
+               <th class="text-center">Exp Date</th>
                {{-- <th class="table-plus datatable-nosort text-center">Action</th> --}}
             </tr>
          </thead>
@@ -68,8 +70,10 @@
                <td class="text-center">{{$no++}}</td>
                <td>{{date ('d M Y', strtotime($data->tanggal))}}</td>
                <td>{{$data->nama_barang}}</td>
+               <td>{{$data->stock}}</td>
                <td>{{ 'Rp ' . number_format($data->harga_modal, 0, ',', '.') }}</td>
                <td>{{ 'Rp ' . number_format($data->harga_jual, 0, ',', '.') }}</td>
+               <td>{{ $data->exp_date }}</td>
                {{-- <td class="text-center" width="15%">
                   <a href="/admin/barang/detail/{{$data->id}}"><button class="btn btn-info btn-xs"><i class="fa fa-address-card" data-toggle="tooltip" data-placement="top" title="Detail Data"></i></button></a>
                   <a href="/admin/barang/edit/{{$data->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit Data"></i></button></a>

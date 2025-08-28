@@ -21,9 +21,9 @@
 <div style="margin-top:-30px; margin-bottom:-20px">
 	<table border="0" width="100%" cellspacing="0" cellpadding="0">
         <tr>
-            <td width="15%" class="text-center">
+            <!-- <td width="15%" class="text-center">
                 <img src="{{ public_path('assets-admin/src/images/logo-ayam.png') }}" width="100%">
-            </td>
+            </td> -->
             <td class="text-center">
                 <p style="font-size:18px;font-weight: bold;font-family: 'Arial', sans-serif;">
                     <span style="font-size:30px">TOKO SYUKURILAH</span><br>
@@ -87,9 +87,12 @@
             <tr>
                 <td width="50%" class="text-center"></td>
                 <td width="50%" class="text-center">
-                    <span style="margin-top: 10px;"><br>Lintau Buo, {{\Carbon\Carbon::parse(date('Y-m-d'))->locale('id')->translatedFormat('d F Y')}}<br>Owner Toko Syukurilah</span><br>
+                    <span style="margin-top: 10px;"><br>Lintau Buo,
+                    {{\Carbon\Carbon::parse(date('Y-m-d'))->locale('id')->translatedFormat('d F Y')}}
+                    <!-- {{ \Carbon\Carbon::parse(now('Asia/Jakarta'))->locale('id')->translatedFormat('d F Y') }} -->
+                    <!-- <br>Owner Toko Syukurilah</span><br>
                     <img style="margin:10px 0px 10px 0px" src="http://api.qrserver.com/v1/create-qr-code/?size=75x75&data=Maya"><br>
-                    <span style="font-weight: bold;">Owner</span><br>
+                    <span style="font-weight: bold;">Owner</span><br> -->
                 </td>
             </tr>
     </table>

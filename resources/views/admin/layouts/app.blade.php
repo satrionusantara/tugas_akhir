@@ -6,23 +6,23 @@
 		<title>Toko Syukurilah</title>
 
 		<!-- Site favicon -->
-		<link
+		<!-- <link
 			rel="apple-touch-icon"
 			sizes="180x180"
 			href="{{url('assets-admin')}}/vendors/images/apple-touch-icon.png"
-		/>
-		<link
+		/> -->
+		<!-- <link
 			rel="icon"
 			type="image/png"
 			sizes="32x32"
 			href="{{url('assets-admin')}}/src/images/logo-ayam.png"
-		/>
-		<link
+		/> -->
+		<!-- <link
 			rel="icon"
 			type="image/png"
 			sizes="16x16"
 			href="{{url('assets-admin')}}/src/images/logo-ayam.png"
-		/>
+		/> -->
 
 		<!-- Mobile Specific Metas -->
 		<meta
@@ -161,7 +161,6 @@
 							class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
 						>
 							<a class="dropdown-item" href="/admin/change"><i class="dw dw-password"></i> Ganti Password</a>
-							<a class="dropdown-item" href="#"><i class="dw dw-book"></i> Manual Book</a>
 							<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
 	              document.getElementById('logout-form').submit();"><i class="dw dw-logout"></i> Log Out</a>
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -344,14 +343,18 @@
 		</div>
 
 		<div class="left-side-bar">
-			<div class="brand-logo">
-				<a href="/">
+			<div class="p-4">
+				<!-- <a href="/">
 					<img src="{{url('assets-admin')}}/src/images/ayam.png"alt="" class="dark-logo" />
 					<img
 						src="{{url('assets-admin')}}/src/images/ayam.png"
 						alt=""
 						class="light-logo"
 					/>
+				</a> -->
+				<a href="/" style="display: flex; flex-direction: column;">
+					<p class="text-primary m-0 " style="font-weight: bold;">Toko Syukurillah PS</p>
+					<p class="text-primary m-0" style="font-size: 11px; font-weight: bold;">Jorong rajawali, Tigo Jangko, Lintau Buo</p>
 				</a>
 				<div class="close-sidebar" data-toggle="left-sidebar-close">
 					<i class="ion-close-round"></i>
@@ -383,7 +386,7 @@
 
                 <li>
                     <a href="/admin/account" class="dropdown-toggle no-arrow @if ($activePage == 'account') active @endif">
-                        <span class="micon dw dw-user1"></span><span class="mtext">Akun Kasir</span>
+                        <span class="micon dw dw-user1"></span><span class="mtext">Data Akun</span>
                     </a>
                 </li>
 
@@ -466,7 +469,7 @@
                 </li>
             @endif
 
-            {{-- LEVEL 3: GUDANG --}}
+            <!-- {{-- LEVEL 3: GUDANG --}}
             @if(Auth::user()->level === '3')
                 <li>
                     <a href="/admin/barang" class="dropdown-toggle no-arrow @if ($activePage == 'barang') active @endif">
@@ -482,7 +485,7 @@
                         <li><a href="/admin/barang_keluar" class="@if ($activePage == 'barang_keluar') active @endif">Barang Keluar</a></li>
                     </ul>
                 </li>
-            @endif
+            @endif -->
 
             {{-- Menu Tambahan (Bisa diakses semua level, jika diperlukan) --}}
             <!-- <li>

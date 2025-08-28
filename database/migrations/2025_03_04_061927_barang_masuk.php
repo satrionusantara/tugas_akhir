@@ -17,9 +17,12 @@ return new class extends Migration
         Schema::create('barang_masuk', function (Blueprint $table) {
             $table->id();
             $table->string('tanggal');
+            $table->string('nomor_nota');
             $table->string('nama_barang');
+            $table->integer('stock')->default(0);
             $table->string('harga_modal');
             $table->string('harga_jual');
+            $table->date('exp_date');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('NULL ON UPDATE CURRENT_TIMESTAMP'))->nullable();
         });

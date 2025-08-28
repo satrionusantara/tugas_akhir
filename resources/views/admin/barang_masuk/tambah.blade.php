@@ -41,8 +41,26 @@
             </div>
             <div class="col-md-6">
                <div class="form-group">
+                  <label>Nomor Nota<span class="text-danger">*</span></label>
+                  <input type="text" name="nomor_nota" class="form-control" placeholder="Masukkan Nama Barang .....">
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-group">
                   <label>Nama Barang<span class="text-danger">*</span></label>
                   <input type="text" name="nama_barang" class="form-control" placeholder="Masukkan Nama Barang .....">
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-group">
+                  <label>Stock<span class="text-danger">*</span></label>
+                  <input type="number" name="stock" class="form-control" placeholder="Masukkan Nama Barang .....">
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-group">
+                  <label>Exp Date<span class="text-danger">*</span></label>
+                  <input type="date" name="exp_date" class="form-control" placeholder="Masukkan Exp Date .....">
                </div>
             </div>
             <div class="col-md-6">

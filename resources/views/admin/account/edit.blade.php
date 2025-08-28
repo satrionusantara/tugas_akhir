@@ -7,13 +7,13 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="title">
-                        <h4>Data Akun Kasir</h4>
+                        <h4>Data Akun</h4>
                     </div>
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Data Input</a></li>
-                            <li class="breadcrumb-item"><a href="/admin/account">Data Akun Kasir</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Edit Data Akun Kasir</li>
+                            <li class="breadcrumb-item"><a href="/admin/account">Data Akun</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit Data Akun</li>
                         </ol>
                     </nav>
                 </div>
@@ -23,7 +23,7 @@
         <div class="pd-20 card-box mb-30">
             <div class="clearfix">
                 <div class="pull-left">
-                    <h2 class="text-primary h2"><i class="icon-copy dw dw-edit-1"></i> Edit Data Akun Kasir</h2>
+                    <h2 class="text-primary h2"><i class="icon-copy dw dw-edit-1"></i> Edit Data Akun</h2>
                 </div>
                 <div class="pull-right">
                     <a href="/admin/account" class="btn btn-primary btn-sm"><i class="fa fa-arrow-left"></i> Back</a>

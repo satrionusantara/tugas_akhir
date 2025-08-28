@@ -149,7 +149,7 @@ Route::prefix('admin/barang_masuk')
     ->controller(BarangMasukController::class)
     ->group(function () {
         Route::get('/', 'read')->name('read');
-        Route::get('/filter/{id}/{bln}', 'read_filter')->name('read_filter');
+        Route::get('/filter/{bln}', 'read_filter')->name('read_filter');
         Route::get('/add', 'add')->name('add');
         Route::post('/create', 'create')->name('create');
         Route::get('/delete/{id}', 'delete')->name('delete');
@@ -198,7 +198,7 @@ Route::prefix('admin/pemasukan')
     ->controller(PemasukanController::class)
     ->group(function () {
         Route::get('/', 'read')->name('read');
-        Route::get('/filter/{id}/{bln}', 'read_filter')->name('read_filter');
+        Route::get('/filter/{bln}', 'read_filter')->name('read_filter');
         Route::get('/cetak/{bln}', 'cetak')->name('cetak');
     });
 
@@ -211,7 +211,7 @@ Route::prefix('admin/transaksi')
     ->controller(TransaksiController::class)
     ->group(function () {
         Route::get('/', 'read')->name('read');
-        Route::get('/filter/{id}/{bln}', 'read_filter')->name('read_filter');
+        Route::get('/filter/{bln}', 'read_filter')->name('read_filter');
         Route::get('/add', 'add')->name('add');
         Route::post('/create', 'create')->name('create');
         Route::get('/edit/{id}', 'edit')->name('edit');
@@ -227,7 +227,7 @@ Route::prefix('admin/transaksi')
 
         Route::post('/bayar/{id}', 'bayar')->name('bayar');
         Route::post('/hutang/{id}', 'hutang')->name('hutang');
-        Route::get('/cetak/nota/{id}', 'nota')->name('nota');
+        Route::get('/cetak/{id}', 'cetak')->name('cetak');
     });
 
 // // Asset
