@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('total')->nullable();
             $table->integer('potongan')->nullable();
             $table->integer('bayar')->nullable();
+            $table->integer('jumlah')->default(0);
             $table->string('kembali')->nullable();
             $table->integer('id_metode')->nullable();
             $table->timestamp('created_at')->useCurrent();
